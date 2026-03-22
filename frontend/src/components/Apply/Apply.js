@@ -4,6 +4,8 @@ import './Apply.css';
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
 
+console.log('🔗 API URL:', API_URL);
+
 const initialFormState = {
   fullName: '',
   email: '',
@@ -63,13 +65,19 @@ function Apply() {
     setIsSubmitting(true);
 
     try {
+      console.log('📤 Submitting application to:', `${API_URL}/api/applications`);
+      console.log('📋 Form data:', formData);
+
       const res = await fetch(`${API_URL}/api/applications`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
+      console.log('📡 Response status:', res.status);
+
       const data = await res.json();
+      console.log('📦 Response data:', data);
 
       if (!res.ok) {
         if (data.errors) {
@@ -77,13 +85,16 @@ function Apply() {
         } else {
           setSubmitError(data.message || 'Something went wrong. Please try again.');
         }
+        console.error('❌ Server error:', data);
         return;
       }
 
+      console.log('✅ Application submitted successfully');
       setSubmitted(true);
       setFormData(initialFormState);
     } catch (err) {
-      setSubmitError('Could not connect to server. Please try again later.');
+      console.error('❌ Network error:', err);
+      setSubmitError(`Could not connect to server: ${err.message}. Make sure the backend is running at ${API_URL}`);
     } finally {
       setIsSubmitting(false);
     }
