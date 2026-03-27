@@ -2,13 +2,13 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  padding: 1rem 1.5rem;
-  background: rgba(34, 197, 94, 0.06);
+  padding: 0.75rem 1.25rem;
+  background: rgba(34, 197, 94, 0.08);
   border: 1px solid rgba(34, 197, 94, 0.15);
   border-radius: 12px;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
 }
 
 .apply-status-dot {
@@ -25,52 +25,53 @@
   50% { opacity: 0.4; }
 }
 
-.apply-layout {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 2rem;
-  align-items: start;
+.positions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 2rem;
 }
 
-/* Roles sidebar */
-.apply-roles-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #fff;
-  margin: 0 0 1rem;
-}
-
-.role-card {
+.position-accordion {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 12px;
-  padding: 1.25rem;
-  margin-bottom: 0.75rem;
-  transition: all 0.2s ease;
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
 
-.role-card:hover {
-  border-color: rgba(255, 153, 0, 0.12);
+.position-accordion:hover {
+  border-color: rgba(255, 153, 0, 0.15);
 }
 
-.role-card-header {
+.position-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin-bottom: 0.5rem;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  transition: background 0.2s ease;
 }
 
-.role-card-header h4 {
-  font-size: 0.9rem;
+.position-header:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.position-title {
+  font-size: 0.95rem;
   font-weight: 700;
   color: #fff;
-  margin: 0;
 }
 
-.role-card-badge {
-  font-size: 0.6rem;
+.position-badge {
+  font-size: 0.65rem;
   font-weight: 600;
-  padding: 0.15rem 0.5rem;
+  padding: 0.2rem 0.6rem;
   background: rgba(255, 153, 0, 0.1);
   color: #ff9900;
   border-radius: 6px;
@@ -78,62 +79,56 @@
   letter-spacing: 0.05em;
 }
 
-.role-card-desc {
-  font-size: 0.8rem;
+.position-icon {
+  font-size: 1.25rem;
   color: rgba(255, 255, 255, 0.5);
-  line-height: 1.5;
-  margin: 0 0 0.75rem;
+  transition: transform 0.3s ease;
 }
 
-.role-card-reqs {
+.position-accordion[open] .position-icon {
+  transform: rotate(45deg);
+}
+
+.position-body {
+  padding: 0 1.25rem 1.25rem 1.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.position-desc {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
+}
+
+.position-reqs {
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 0 0 1rem 0;
 }
 
-.role-card-reqs li {
+.position-reqs li {
   font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.5);
   padding: 0.2rem 0;
   padding-left: 1rem;
   position: relative;
 }
 
-.role-card-reqs li::before {
+.position-reqs li::before {
   content: '→';
   position: absolute;
   left: 0;
-  color: rgba(255, 153, 0, 0.4);
+  color: rgba(255, 153, 0, 0.5);
+  font-size: 0.7rem;
 }
 
-/* Form */
-.apply-form-wrapper {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
-  padding: 2rem;
-}
-
-.apply-form-title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #fff;
-  margin: 0 0 1.5rem;
-}
-
-.apply-form-error-banner {
-  padding: 0.75rem 1rem;
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.2);
-  border-radius: 8px;
-  color: #f87171;
-  font-size: 0.85rem;
-  margin-bottom: 1.25rem;
+.application-form {
+  margin-top: 1rem;
 }
 
 .form-group {
-  margin-bottom: 1.25rem;
-  flex: 1;
+  margin-bottom: 1rem;
 }
 
 .form-row {
@@ -144,10 +139,10 @@
 
 .form-group label {
   display: block;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
 }
 
 .required {
@@ -158,16 +153,15 @@
 .form-group select,
 .form-group textarea {
   width: 100%;
-  padding: 0.7rem 1rem;
+  padding: 0.6rem 0.9rem;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
+  border-radius: 8px;
   color: #fff;
   font-size: 0.85rem;
   font-family: inherit;
-  transition: border-color 0.2s ease;
+  transition: all 0.2s ease;
   outline: none;
-  box-sizing: border-box;
 }
 
 .form-group input::placeholder,
@@ -178,21 +172,28 @@
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
-  border-color: rgba(255, 153, 0, 0.4);
+  border-color: rgba(255, 153, 0, 0.5);
   background: rgba(255, 255, 255, 0.06);
 }
 
 .form-group select {
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff40' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ffffff60' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 1rem center;
+  background-position: right 0.9rem center;
 }
 
+/* Dark dropdown styling for better visibility */
 .form-group select option {
-  background: #1a1f2e;
-  color: #fff;
+  background-color: #1a1f26;
+  color: #ffffff;
+  padding: 8px;
+}
+
+.form-group select option:hover,
+.form-group select option:focus {
+  background-color: #2d333a;
 }
 
 .form-group textarea {
@@ -202,9 +203,9 @@
 
 .form-error {
   display: block;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   color: #f87171;
-  margin-top: 0.35rem;
+  margin-top: 0.25rem;
 }
 
 .btn-full {
@@ -212,10 +213,56 @@
   margin-top: 0.5rem;
 }
 
-/* Success state */
+.form-message {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  text-align: center;
+  display: none;
+}
+
+.form-message.show {
+  display: block;
+}
+
+.form-message.success {
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+}
+
+.form-message.error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+
+.form-message.loading {
+  background: rgba(255, 153, 0, 0.1);
+  border: 1px solid rgba(255, 153, 0, 0.2);
+  color: #ff9900;
+}
+
+.spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 153, 0, 0.3);
+  border-top-color: #ff9900;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 .apply-success {
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 3rem 2rem;
 }
 
 .apply-success-icon {
@@ -224,24 +271,29 @@
 }
 
 .apply-success h3 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: #fff;
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.5rem;
 }
 
 .apply-success p {
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 0.95rem;
-  margin: 0 0 2rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  margin: 0 0 1.5rem;
 }
 
 @media (max-width: 768px) {
-  .apply-layout {
-    grid-template-columns: 1fr;
-  }
-
   .form-row {
     grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .position-header {
+    padding: 0.875rem 1rem;
+  }
+  
+  .position-body {
+    padding: 0 1rem 1rem 1rem;
   }
 }

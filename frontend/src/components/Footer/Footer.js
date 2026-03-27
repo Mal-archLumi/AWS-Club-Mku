@@ -8,8 +8,9 @@ function Footer() {
       <div className="container">
         <div className="footer-content">
           <div className="footer-brand">
-            <img src={awsLogo} alt="AWS Cloud Club MKU Logo" className="footer-brand-icon" />
+            <img src={awsLogo} alt="AWS Cloud Club MKU" className="footer-logo" />
           </div>
+          
           <p className="footer-copy">
             &copy; {new Date().getFullYear()} AWS Cloud Club — Mount Kenya University. All rights reserved.
           </p>

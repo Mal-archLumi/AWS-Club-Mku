@@ -5,25 +5,41 @@ import awsLogo from '../../images/aws-logo.png';
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
+      
+      // Track which section is in view
+      const sections = ['home', 'about', 'team', 'events', 'apply', 'contact'];
+      for (let section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          if (rect.top <= 100 && rect.bottom >= 100) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
     };
+    
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleLinkClick = () => {
+  const handleLinkClick = (section) => {
+    setActiveSection(section);
     setIsOpen(false);
   };
 
   return (
     <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}`}>
       <div className="nav-container">
-        <a href="#hero" className="nav-logo">
-          <img src={awsLogo} alt="AWS Cloud Club MKU Logo" className="nav-logo-icon" />
-          <span className="nav-logo-text">
+        <a href="#home" className="nav-logo" onClick={() => handleLinkClick('home')}>
+          <img src={awsLogo} alt="AWS Cloud Club MKU" className="nav-logo-icon" />
+          <span>
             Cloud Club <span className="nav-logo-accent">MKU</span>
           </span>
         </a>
@@ -37,15 +53,12 @@ function Navbar() {
         </button>
 
         <ul className={`nav-links${isOpen ? ' nav-links--open' : ''}`}>
-          <li><a href="#about" onClick={handleLinkClick}>About</a></li>
-          <li><a href="#team" onClick={handleLinkClick}>Team</a></li>
-          <li><a href="#events" onClick={handleLinkClick}>Events</a></li>
-          <li><a href="#contact" onClick={handleLinkClick}>Contact</a></li>
-          <li>
-            <a href="#apply" className="nav-cta" onClick={handleLinkClick}>
-              Apply Now
-            </a>
-          </li>
+          <li><a href="#home" className={activeSection === 'home' ? 'active' : ''} onClick={() => handleLinkClick('home')}>Home</a></li>
+          <li><a href="#about" className={activeSection === 'about' ? 'active' : ''} onClick={() => handleLinkClick('about')}>About</a></li>
+          <li><a href="#team" className={activeSection === 'team' ? 'active' : ''} onClick={() => handleLinkClick('team')}>Team</a></li>
+          <li><a href="#events" className={activeSection === 'events' ? 'active' : ''} onClick={() => handleLinkClick('events')}>Events</a></li>
+          <li><a href="#apply" className={activeSection === 'apply' ? 'active' : ''} onClick={() => handleLinkClick('apply')}>Apply</a></li>
+          <li><a href="#contact" className={activeSection === 'contact' ? 'active' : ''} onClick={() => handleLinkClick('contact')}>Contact</a></li>
         </ul>
       </div>
     </nav>

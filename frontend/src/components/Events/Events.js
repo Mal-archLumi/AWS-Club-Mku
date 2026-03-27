@@ -27,9 +27,20 @@ function Events() {
                 </span>
                 <h3 className="event-card-title">{event.title}</h3>
                 <p className="event-card-desc">{event.description}</p>
-                <span className="event-card-meta">
-                  📍 {event.location} · {event.time}
-                </span>
+                <div className="event-card-meta">
+                  <span>📍 {event.location}</span>
+                  <span>🕐 {event.time}</span>
+                </div>
+                {event.bookingLink && (
+                  <a 
+                    href={event.bookingLink} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="event-card-link"
+                  >
+                    Register Now →
+                  </a>
+                )}
               </div>
             </div>
           ))}

@@ -4,7 +4,7 @@ import awsLogo from '../../images/aws-logo.png';
 
 function Hero() {
   return (
-    <section className="hero" id="hero">
+    <section className="hero" id="home">
       <div className="hero-bg">
         <div className="hero-gradient"></div>
         <div className="hero-grid-overlay"></div>
@@ -12,7 +12,7 @@ function Hero() {
 
       <div className="hero-content">
         <div className="hero-badge">
-          <img src={awsLogo} alt="AWS Logo" className="hero-badge-icon-small" />
+          <img src={awsLogo} alt="AWS Logo" className="hero-badge-icon" />
           Cloud Club — Mount Kenya University
         </div>
 
@@ -45,7 +45,7 @@ function Hero() {
           <div className="hero-stat-divider"></div>
           <div className="hero-stat">
             <span className="hero-stat-number">20+</span>
-            <span className="hero-stat-label">Events Held</span>
+            <span className="hero-stat-label">Events</span>
           </div>
           <div className="hero-stat-divider"></div>
           <div className="hero-stat">

@@ -18,6 +18,18 @@ body {
   line-height: 1.5;
 }
 
+/* Rounded corners for all card and interactive elements */
+button,
+input,
+select,
+textarea,
+[class*="card"],
+[class*="accordion"],
+[class*="link"],
+details {
+  border-radius: 12px;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
