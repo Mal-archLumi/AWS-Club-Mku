@@ -1,56 +1,92 @@
-.about-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 1.25rem;
-  margin-top: 2rem;
+.about-top {
+  text-align: center;
+  margin-bottom: 3rem;
 }
 
-.about-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  border-radius: 16px;
+.about-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.02em;
+}
+
+.about-subtitle {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.about-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+}
+
+.about-feature {
+  display: flex;
+  gap: 1.25rem;
   padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
   transition: all 0.3s ease;
 }
 
-.about-card:hover {
+.about-feature:hover {
   background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 153, 0, 0.2);
+  border-color: rgba(255, 153, 0, 0.15);
   transform: translateY(-2px);
 }
 
-.about-card-icon {
-  width: 48px;
-  height: 48px;
+.feature-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 153, 0, 0.08);
-  border-radius: 12px;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
+  align-items: flex-start;
+  padding-top: 0.2rem;
 }
 
-.about-card-title {
-  font-size: 1rem;
+.feature-content {
+  flex: 1;
+}
+
+.feature-title {
+  font-size: 1.05rem;
   font-weight: 700;
   color: #fff;
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.4rem;
 }
 
-.about-card-desc {
-  font-size: 0.85rem;
-  line-height: 1.5;
+.feature-text {
+  font-size: 0.9rem;
   color: rgba(255, 255, 255, 0.55);
+  line-height: 1.5;
   margin: 0;
 }
 
-@media (max-width: 640px) {
-  .about-grid {
-    gap: 1rem;
+@media (max-width: 768px) {
+  .about-title {
+    font-size: 1.75rem;
   }
-  
-  .about-card {
+
+  .about-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .about-top {
+    margin-bottom: 2.5rem;
+  }
+
+  .about-features {
+    gap: 1.5rem;
+  }
+
+  .about-feature {
     padding: 1.25rem;
   }
 }

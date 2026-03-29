@@ -52,6 +52,13 @@
   flex: 1;
 }
 
+.event-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
 .event-card-tag {
   display: inline-block;
   padding: 0.2rem 0.6rem;
@@ -62,7 +69,19 @@
   letter-spacing: 0.05em;
   background: rgba(255, 153, 0, 0.1);
   color: #ff9900;
-  margin-bottom: 0.5rem;
+}
+
+.event-badge-featured {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.6rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: rgba(255, 153, 0, 0.15);
+  color: #ff9900;
+  border: 1px solid rgba(255, 153, 0, 0.3);
 }
 
 .event-card-tag--workshop {
@@ -117,6 +136,13 @@
 
 .event-card-link:hover {
   gap: 0.5rem;
+}
+
+.events-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
 }
 
 @media (max-width: 640px) {

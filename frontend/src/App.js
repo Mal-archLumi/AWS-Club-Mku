@@ -33,8 +33,8 @@ function App() {
       <Navbar />
       <Hero />
       <About />
-      <Team />
       <Events />
+      <Team />
       <Apply />
       <Contact />
       <Footer />

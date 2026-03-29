@@ -28,7 +28,12 @@ function Hero() {
         </p>
 
         <div className="hero-actions">
-          <a href="#apply" className="btn btn-primary">
+          <a 
+            href="https://www.meetup.com/aws-cloud-club-at-mount-kenya-university/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="btn btn-primary"
+          >
             Join the Club
             <span className="btn-arrow">→</span>
           </a>
