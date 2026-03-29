@@ -55,8 +55,8 @@ function Navbar() {
         <ul className={`nav-links${isOpen ? ' nav-links--open' : ''}`}>
           <li><a href="#home" className={activeSection === 'home' ? 'active' : ''} onClick={() => handleLinkClick('home')}>Home</a></li>
           <li><a href="#about" className={activeSection === 'about' ? 'active' : ''} onClick={() => handleLinkClick('about')}>About</a></li>
-          <li><a href="#team" className={activeSection === 'team' ? 'active' : ''} onClick={() => handleLinkClick('team')}>Team</a></li>
           <li><a href="#events" className={activeSection === 'events' ? 'active' : ''} onClick={() => handleLinkClick('events')}>Events</a></li>
+          <li><a href="#team" className={activeSection === 'team' ? 'active' : ''} onClick={() => handleLinkClick('team')}>Team</a></li>
           <li><a href="#apply" className={activeSection === 'apply' ? 'active' : ''} onClick={() => handleLinkClick('apply')}>Apply</a></li>
           <li><a href="#contact" className={activeSection === 'contact' ? 'active' : ''} onClick={() => handleLinkClick('contact')}>Contact</a></li>
         </ul>
