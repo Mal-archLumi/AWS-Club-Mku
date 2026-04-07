@@ -1,6 +1,20 @@
 const events = [
   {
     id: 1,
+    title: 'AWS Student Community Day',
+    type: 'Workshop',
+    description: 'Join us for an all-day AWS Student Community Day with hands-on labs, expert sessions, and networking. Learn directly from AWS professionals and industry experts.',
+    date: '2026-05-09',
+    time: '8:30 AM - 4:30 PM',
+    location: 'Mount Kenya University, Thika, Kiambu County',
+    registrationLink: 'https://www.meetup.com/aws-cloud-club-at-mount-kenya-university/',
+    eventRegistrationForm: 'https://luma.com/gtwqu3zo',
+    githubLink: 'https://github.com/everlyne-dotcom/aws-scd-mku',
+    isFeatured: true,
+    isHighlight: true,
+  },
+  {
+    id: 2,
     title: 'Intro to AWS Cloud Practitioner',
     type: 'Workshop',
     description: 'Kickstart your cloud journey with an introduction to core AWS services and cloud concepts. Perfect for beginners!',
@@ -11,7 +25,7 @@ const events = [
     isFeatured: true,
   },
   {
-    id: 2,
+    id: 3,
     title: 'Cloud Build Challenge',
     type: 'Hackathon',
     description: 'Team up and build a serverless application using AWS Lambda, API Gateway, and DynamoDB. Prizes for winners!',
@@ -22,7 +36,7 @@ const events = [
     isFeatured: true,
   },
   {
-    id: 3,
+    id: 4,
     title: 'AWS Industry Connect',
     type: 'Networking',
     description: 'Network with AWS Solutions Architects and learn about career paths in cloud computing. Q&A session included.',
@@ -32,7 +46,7 @@ const events = [
     registrationLink: 'https://www.meetup.com/aws-cloud-club-at-mount-kenya-university/',
   },
   {
-    id: 4,
+    id: 5,
     title: 'Database Design Mastery',
     type: 'Workshop',
     description: 'Learn database design patterns, optimization techniques, and scaling strategies using AWS RDS and DynamoDB.',

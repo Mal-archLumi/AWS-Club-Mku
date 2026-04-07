@@ -2,7 +2,12 @@ import React from 'react';
 import './Contact.css';
 
 function Contact() {
-  const mapsUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.7359932537677!2d37.0749!3d-1.2519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1b8e8e8e8e8d%3A0x5f5f5f5f5f5f5f5f!2sMount%20Kenya%20University!5e0!3m2!1sen!2ske!4v1234567890';
+  const mapsEmbedUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.7359932537677!2d37.0749!3d-1.2519!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1b8e8e8e8e8d%3A0x5f5f5f5f5f5f5f5f!2sMount%20Kenya%20University!5e0!3m2!1sen!2ske!4v1234567890';
+  const mapsDirectionsUrl = 'https://maps.app.goo.gl/aUjkszRkewsavhfK9';
+
+  const handleMapClick = () => {
+    window.open(mapsDirectionsUrl, '_blank');
+  };
 
   return (
     <section className="section contact" id="contact">
@@ -59,10 +64,18 @@ function Contact() {
           <div className="contact-map">
             <iframe
               title="Mount Kenya University Location"
-              src={mapsUrl}
+              src={mapsEmbedUrl}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             ></iframe>
+            <button 
+              className="map-overlay-button"
+              onClick={handleMapClick}
+              title="Open directions in Google Maps"
+              aria-label="Open Mount Kenya University in Google Maps"
+            >
+              📍 Open in Google Maps
+            </button>
           </div>
         </div>
       </div>

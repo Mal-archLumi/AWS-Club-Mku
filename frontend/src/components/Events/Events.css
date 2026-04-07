@@ -1,3 +1,281 @@
+.events-empty {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1rem;
+}
+
+/* ===== Featured Event ===== */
+.event-featured-container {
+  margin-bottom: 3rem;
+}
+
+.event-featured-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 153, 0, 0.12);
+  border-radius: 16px;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.event-featured-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255, 153, 0, 0.03), transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.event-featured-badge {
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.badge-text {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: rgba(255, 153, 0, 0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 153, 0, 0.08);
+  border: 1px solid rgba(255, 153, 0, 0.15);
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.event-featured-header {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.event-featured-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  background: rgba(255, 153, 0, 0.06);
+  border: 1px solid rgba(255, 153, 0, 0.15);
+  border-radius: 14px;
+  padding: 1.5rem 1rem;
+  flex-shrink: 0;
+}
+
+.featured-date-day {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #ff9900;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.featured-date-month {
+  font-size: 0.75rem;
+  color: rgba(255, 153, 0, 0.7);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.event-featured-info {
+  flex: 1;
+}
+
+.event-featured-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin: 0 0 0.75rem 0;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.event-featured-subtitle {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.event-featured-details {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.featured-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.detail-icon {
+  font-size: 1.25rem;
+}
+
+.detail-text {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.event-featured-github {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(255, 153, 0, 0.04);
+  border: 1px solid rgba(255, 153, 0, 0.1);
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.github-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 153, 0, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.75rem 0;
+}
+
+.github-link-container {
+  display: flex;
+  gap: 0.75rem;
+  align-items: stretch;
+}
+
+.github-link {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 153, 0, 0.2);
+  border-radius: 8px;
+  color: rgba(255, 153, 0, 0.8);
+  text-decoration: none;
+  font-family: 'Monaco', 'Courier New', monospace;
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.github-link:hover {
+  background: rgba(255, 153, 0, 0.1);
+  border-color: rgba(255, 153, 0, 0.4);
+  color: #ff9900;
+}
+
+.github-copy-btn {
+  padding: 0.75rem 1rem;
+  background: rgba(255, 153, 0, 0.15);
+  border: 1px solid rgba(255, 153, 0, 0.3);
+  border-radius: 8px;
+  color: rgba(255, 153, 0, 0.9);
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  font-family: inherit;
+}
+
+.github-copy-btn:hover {
+  background: #e67e00;
+  transform: translateY(-2px);
+}
+
+.github-copy-btn.copied {
+  background: #4ade80;
+  color: #0a0e1a;
+}
+
+/* Featured CTA Button */
+.event-featured-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: #ff9900;
+  color: #0a0e1a !important;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.event-featured-cta:hover {
+  background: #e67e00;
+  transform: translateY(-2px);
+}
+
+/* Featured Actions Container */
+.event-featured-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+/* Event Registration Form Link */
+.event-featured-form-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: rgba(255, 153, 0, 0.12);
+  color: #ff9900 !important;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  border: 2px solid rgba(255, 153, 0, 0.25);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.event-featured-form-link:hover {
+  background: rgba(255, 153, 0, 0.2);
+  border-color: rgba(255, 153, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Other Events Section */
+.events-section {
+  margin-top: 2rem;
+}
+
+.events-section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 1.5rem;
+}
+
+.coming-soon {
+  background: rgba(255, 153, 0, 0.06) !important;
+}
+
 .events-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -169,5 +447,58 @@
 
   .event-card-day {
     font-size: 1rem;
+  }
+
+  .event-featured-card {
+    padding: 1.75rem;
+  }
+
+  .event-featured-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .event-featured-date {
+    width: 100%;
+    padding: 1.25rem;
+    flex-direction: row;
+    gap: 1.5rem;
+    justify-content: flex-start;
+  }
+
+  .featured-date-day {
+    font-size: 2rem;
+  }
+
+  .event-featured-title {
+    font-size: 1.35rem;
+  }
+
+  .event-featured-subtitle {
+    font-size: 0.95rem;
+  }
+
+  .github-link-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .github-link {
+    flex-direction: row;
+    min-width: auto;
+  }
+
+  .github-copy-btn {
+    width: 100%;
+  }
+
+  .event-featured-actions {
+    flex-direction: column;
+  }
+
+  .event-featured-cta,
+  .event-featured-form-link {
+    width: 100%;
+    justify-content: center;
   }
 }
