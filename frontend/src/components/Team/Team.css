@@ -178,4 +178,12 @@
   .team-grid {
     grid-template-columns: 1fr;
   }
+  
+  .team-card-content {
+    padding: 1rem;
+  }
+  
+  .team-description {
+    font-size: 0.9rem;
+  }
 }

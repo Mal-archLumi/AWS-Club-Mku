@@ -5,11 +5,26 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 70px;
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+}
+
 .App {
   min-height: 100vh;
   background: #0a0e1a;
   color: #fff;
   overflow-x: hidden;
+  width: 100%;
+  position: relative;
 }
 
 /* ===== Shared Layout ===== */
@@ -17,15 +32,32 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
+  width: 100%;
 }
 
 .section {
   padding: 4rem 0;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 @media (max-width: 768px) {
   .section {
     padding: 3rem 0;
+  }
+  
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: 2.5rem 0;
+  }
+  
+  .container {
+    padding: 0 0.875rem;
   }
 }
 
@@ -140,7 +172,15 @@
   color: #fff;
 }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 70px;
+/* ===== Mobile Optimization ===== */
+@media (max-width: 640px) {
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
 }
