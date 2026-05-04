@@ -1,158 +1,154 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 import './Hero.css';
 
+const EASING = [0.2, 0.8, 0.2, 1];
+
+const fadeIn = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.4, ease: EASING } },
+};
+
+const slideUp = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASING } },
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+  },
+};
+
 function Hero() {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const ref = useRef(null);
 
   useEffect(() => {
-    setIsLoaded(true);
+    setMounted(true);
   }, []);
 
   return (
-    <section className="hero" id="home">
-      {/* Background Effects */}
-      <div className="hero-bg">
-        <div className="hero-gradient"></div>
-        <div className="hero-grid-overlay"></div>
-        <div className="hero-glow hero-glow-1"></div>
-        <div className="hero-glow hero-glow-2"></div>
-      </div>
-
-      {/* Content Container */}
+    <section className="hero" id="home" ref={ref}>
       <div className="hero-container">
-        {/* Left Content */}
-        <div className={`hero-content ${isLoaded ? 'loaded' : ''}`}>
-          <div className="hero-badge">
-            <span className="badge-dot"></span>
-            Builders Community
-          </div>
+        <motion.div
+          className="hero-content"
+          variants={staggerContainer}
+          initial="hidden"
+          animate={mounted ? 'visible' : 'hidden'}
+        >
+          <motion.div className="hero-label" variants={slideUp}>
+            <span className="hero-label-dot" />
+            <span>Builder System</span>
+          </motion.div>
 
-          <h1 className="hero-title">
-            Build real projects.
-            <span className="hero-title-accent">Not just skills.</span>
-          </h1>
+          <motion.h1 className="hero-heading" variants={slideUp}>
+            Build real software.
+            <span className="hero-heading-accent">Ship real products.</span>
+          </motion.h1>
 
-          <p className="hero-subtitle">
-            Join a community of developers, designers, and engineers building real-world systems together. Learn through collaborative projects, mentorship, and hands-on engineering practice.
-          </p>
+          <motion.p className="hero-description" variants={slideUp}>
+            A structured developer ecosystem where students execute in focused
+            teams, deliver on timelines, and operate continuous build cycles
+            with mentorship and code reviews.
+          </motion.p>
 
-          <div className="hero-actions">
-            <a 
-              href="#apply"
-              className="btn btn-primary"
-            >
-              Join Builder Club
-              <span className="btn-arrow">→</span>
+          <motion.div className="hero-actions" variants={slideUp}>
+            <a href="#apply" className="hero-btn hero-btn-primary">
+              Enter System
             </a>
-            <button 
-              className="btn btn-secondary"
+            <button
+              className="hero-btn hero-btn-secondary"
               onClick={() => {
-                const projectsSection = document.getElementById('events');
-                projectsSection?.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('build-cycles')?.scrollIntoView({
+                  behavior: 'smooth',
+                });
               }}
             >
-              Explore Projects
+              View Build Cycles
             </button>
-          </div>
+          </motion.div>
 
-          {/* Stats Row */}
-          <div className="hero-stats">
-            <div className="hero-stat">
-              <div className="stat-value">100+</div>
-              <div className="stat-label">Active Members</div>
+          <motion.div className="hero-metrics" variants={fadeIn}>
+            <div className="hero-metric">
+              <div className="hero-metric-value">100+</div>
+              <div className="hero-metric-label">Active Builders</div>
             </div>
-            <div className="stat-separator"></div>
-            <div className="hero-stat">
-              <div className="stat-value">50+</div>
-              <div className="stat-label">Projects Built</div>
+            <div className="hero-metric-divider" />
+            <div className="hero-metric">
+              <div className="hero-metric-value">50+</div>
+              <div className="hero-metric-label">Projects Shipped</div>
             </div>
-            <div className="stat-separator"></div>
-            <div className="hero-stat">
-              <div className="stat-value">15+</div>
-              <div className="stat-label">Certifications</div>
+            <div className="hero-metric-divider" />
+            <div className="hero-metric">
+              <div className="hero-metric-value">15+</div>
+              <div className="hero-metric-label">AWS Certified</div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
-        {/* Right Visual */}
-        <div className={`hero-visual ${isLoaded ? 'loaded' : ''}`}>
-          <div className="visual-container">
-            {/* Dashboard Mockup */}
-            <div className="dashboard">
-              <div className="dashboard-header">
-                <div className="dashboard-title">Project Workspace</div>
-                <div className="dashboard-dots">
-                  <div></div>
-                  <div></div>
-                  <div></div>
-                </div>
-              </div>
-              <div className="dashboard-body">
-                {/* Active Projects */}
-                <div className="project-card">
-                  <div className="project-header">
-                    <div className="project-icon">🚀</div>
-                    <div className="project-info">
-                      <div className="project-title">Mobile App</div>
-                      <div className="project-team">4 builders</div>
-                    </div>
-                  </div>
-                  <div className="progress-bar">
-                    <div className="progress-fill" style={{ width: '65%' }}></div>
-                  </div>
-                </div>
-
-                <div className="project-card">
-                  <div className="project-header">
-                    <div className="project-icon">📊</div>
-                    <div className="project-info">
-                      <div className="project-title">Analytics Tool</div>
-                      <div className="project-team">3 builders</div>
-                    </div>
-                  </div>
-                  <div className="progress-bar">
-                    <div className="progress-fill" style={{ width: '40%' }}></div>
-                  </div>
-                </div>
-
-                <div className="project-card">
-                  <div className="project-header">
-                    <div className="project-icon">🔐</div>
-                    <div className="project-info">
-                      <div className="project-title">Auth System</div>
-                      <div className="project-team">5 builders</div>
-                    </div>
-                  </div>
-                  <div className="progress-bar">
-                    <div className="progress-fill" style={{ width: '85%' }}></div>
-                  </div>
-                </div>
-
-                {/* Stats Grid */}
-                <div className="dashboard-stats">
-                  <div className="stat-box">
-                    <div className="stat-box-label">PRs Merged</div>
-                    <div className="stat-box-value">243</div>
-                  </div>
-                  <div className="stat-box">
-                    <div className="stat-box-label">Code Reviews</div>
-                    <div className="stat-box-value">89</div>
-                  </div>
-                </div>
+        <motion.div
+          className="hero-visual"
+          initial={{ opacity: 0, scale: 0.96 }}
+          animate={mounted ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.5, ease: EASING, delay: 0.3 }}
+        >
+          <div className="hero-terminal">
+            <div className="hero-terminal-header">
+              <div className="hero-terminal-title">build-system</div>
+              <div className="hero-terminal-controls">
+                <span />
+                <span />
+                <span />
               </div>
             </div>
-
-            {/* Floating Cards */}
-            <div className="floating-card card-1">
-              <div className="card-badge">Live</div>
-              <div className="card-text">Collaborative</div>
-            </div>
-            <div className="floating-card card-2">
-              <div className="card-badge">Real</div>
-              <div className="card-text">World Projects</div>
+            <div className="hero-terminal-body">
+              <div className="hero-terminal-line">
+                <span className="hero-terminal-prompt">$</span>
+                <span className="hero-terminal-text">npm run build</span>
+              </div>
+              <div className="hero-terminal-line">
+                <span className="hero-terminal-output">
+                  Building production bundle...
+                </span>
+              </div>
+              <div className="hero-terminal-line">
+                <span className="hero-terminal-success">✓</span>
+                <span className="hero-terminal-text">Build complete</span>
+              </div>
+              <div className="hero-terminal-line">
+                <span className="hero-terminal-prompt">$</span>
+                <span className="hero-terminal-text">npm run deploy</span>
+              </div>
+              <div className="hero-terminal-line">
+                <span className="hero-terminal-output">
+                  Deploying to production...
+                </span>
+              </div>
+              <div className="hero-terminal-line">
+                <span className="hero-terminal-success">✓</span>
+                <span className="hero-terminal-text">Deployed successfully</span>
+              </div>
             </div>
           </div>
-        </div>
+
+          <div className="hero-stats-card">
+            <div className="hero-stats-card-row">
+              <div className="hero-stats-card-label">Active Cycles</div>
+              <div className="hero-stats-card-value">4</div>
+            </div>
+            <div className="hero-stats-card-row">
+              <div className="hero-stats-card-label">PRs Merged</div>
+              <div className="hero-stats-card-value">243</div>
+            </div>
+            <div className="hero-stats-card-row">
+              <div className="hero-stats-card-label">Code Reviews</div>
+              <div className="hero-stats-card-value">89</div>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

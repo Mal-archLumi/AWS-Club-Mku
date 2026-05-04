@@ -1,83 +1,114 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import roles from '../../data/roles';
 import './Apply.css';
 
-// EmailJS Configuration - Replace with your actual values
+// EmailJS Configuration
 const EMAILJS_SERVICE_ID = 'service_be3ds85';
 const EMAILJS_TEMPLATE_ID = 'template_u7gtp0f';
 const EMAILJS_PUBLIC_KEY = 'DiIq_Jyufw19_CGfy';
 
-function Apply() {
-  const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState({});
-  const [openPositions, setOpenPositions] = useState({});
-  const [submitSuccess, setSubmitSuccess] = useState(null);
+const EASING = [0.2, 0.8, 0.2, 1];
 
-  const togglePosition = (id) => {
-    setOpenPositions(prev => ({ ...prev, [id]: !prev[id] }));
+const slideUp = {
+  hidden: { opacity: 0, y: 16 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASING } },
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+  },
+};
+
+function Apply() {
+  const [inView, setInView] = useState(false);
+  const [selectedRole, setSelectedRole] = useState(null);
+  const [formData, setFormData] = useState({});
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setInView(true);
+        }
+      },
+      { threshold: 0.2, rootMargin: '-80px' }
+    );
+
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  const handleRoleSelect = (roleId) => {
+    setSelectedRole(roleId);
+    setFormData({});
+    setErrors({});
+    setSubmitStatus(null);
   };
 
-  const [formData, setFormData] = useState({});
-
-  const handleChange = (roleId, e) => {
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [roleId]: { ...prev[roleId], [name]: value }
-    }));
-    // Clear error for this field
-    if (errors[`${roleId}-${name}`]) {
-      setErrors(prev => {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) {
+      setErrors((prev) => {
         const newErrors = { ...prev };
-        delete newErrors[`${roleId}-${name}`];
+        delete newErrors[name];
         return newErrors;
       });
     }
   };
 
-  const validateForm = (roleId, data) => {
+  const validateForm = () => {
     const newErrors = {};
-    if (!data.fullName?.trim() || data.fullName.trim().length < 2)
-      newErrors[`${roleId}-fullName`] = 'Full name is required (min 2 characters)';
-    if (!data.email?.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
-      newErrors[`${roleId}-email`] = 'A valid email is required';
-    if (!data.regNumber?.trim() || data.regNumber.trim().length < 3)
-      newErrors[`${roleId}-regNumber`] = 'Registration number is required';
-    if (!data.yearOfStudy)
-      newErrors[`${roleId}-yearOfStudy`] = 'Select your year of study';
-    if (!data.experience?.trim() || data.experience.trim().length < 20)
-      newErrors[`${roleId}-experience`] = 'Tell us about your experience (min 20 characters)';
-    if (!data.motivation?.trim() || data.motivation.trim().length < 20)
-      newErrors[`${roleId}-motivation`] = 'Share your motivation (min 20 characters)';
+    if (!formData.fullName?.trim() || formData.fullName.trim().length < 2)
+      newErrors.fullName = 'Full name required (min 2 characters)';
+    if (!formData.email?.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      newErrors.email = 'Valid email required';
+    if (!formData.regNumber?.trim() || formData.regNumber.trim().length < 3)
+      newErrors.regNumber = 'Registration number required';
+    if (!formData.yearOfStudy)
+      newErrors.yearOfStudy = 'Year of study required';
+    if (!formData.experience?.trim() || formData.experience.trim().length < 20)
+      newErrors.experience = 'Experience required (min 20 characters)';
+    if (!formData.motivation?.trim() || formData.motivation.trim().length < 20)
+      newErrors.motivation = 'Motivation required (min 20 characters)';
     return newErrors;
   };
 
-  const handleSubmit = async (e, roleId, roleTitle) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    const data = formData[roleId] || {};
-    const validationErrors = validateForm(roleId, data);
-    
+    const validationErrors = validateForm();
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
 
     setLoading(true);
-    setSubmitSuccess(null);
+    setSubmitStatus(null);
 
+    const role = roles.find((r) => r.id === selectedRole);
+    
     // Prepare email template data
     const templateParams = {
-      to_email: data.email,
-      from_name: data.fullName,
-      role: roleTitle,
-      registration_number: data.regNumber,
-      year_of_study: data.yearOfStudy,
-      experience: data.experience,
-      motivation: data.motivation,
-      linkedin: data.linkedin || 'Not provided',
-      github: data.github || 'Not provided',
+      to_email: 'awscloudclub.mku@gmail.com',
+      from_name: formData.fullName,
+      from_email: formData.email,
+      role: role.title,
+      registration_number: formData.regNumber,
+      year_of_study: formData.yearOfStudy,
+      experience: formData.experience,
+      motivation: formData.motivation,
+      linkedin: formData.linkedin || 'Not provided',
+      github: formData.github || 'Not provided',
       submission_date: new Date().toLocaleDateString(),
     };
 
@@ -88,230 +119,310 @@ function Apply() {
         templateParams,
         EMAILJS_PUBLIC_KEY
       );
+
+      setSubmitStatus('success');
+      setFormData({});
       
-      // Clear form for this role
-      setFormData(prev => ({ ...prev, [roleId]: {} }));
-      setSubmitSuccess({ roleId, message: 'Application submitted successfully! We\'ll review it shortly.' });
-      
-      // Clear success message after 5 seconds
-      setTimeout(() => setSubmitSuccess(null), 5000);
+      // Reset to role selection after 3 seconds
+      setTimeout(() => {
+        setSelectedRole(null);
+        setSubmitStatus(null);
+      }, 3000);
     } catch (error) {
       console.error('EmailJS Error:', error);
-      setErrors({ ...errors, [`${roleId}-submit`]: 'Failed to submit. Please try again.' });
+      setSubmitStatus('error');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <section className="section apply" id="apply">
-      <div className="container">
-        <div className="section-header">
-          <span className="section-tag">Get Involved</span>
-          <h2 className="section-title">Apply for a Role</h2>
-          <p className="section-desc">
-            We're always looking for passionate students to join our leadership team.
-          </p>
-        </div>
+    <section className="apply" id="apply" ref={ref}>
+      <div className="apply-container">
+        <motion.div
+          className="apply-header"
+          variants={staggerContainer}
+          initial="hidden"
+          animate={inView ? 'visible' : 'hidden'}
+        >
+          <motion.span className="apply-label" variants={slideUp}>
+            Entry Layer
+          </motion.span>
+          <motion.h2 className="apply-heading" variants={slideUp}>
+            Join the System
+          </motion.h2>
+          <motion.p className="apply-description" variants={slideUp}>
+            Operate execution cycles, lead builds, and ship real software. Join as a system operator or active builder.
+          </motion.p>
+        </motion.div>
 
-        <div className="apply-status">
-          <div className="apply-status-dot"></div>
-          <span>
-            Applications are currently <strong>OPEN</strong> — Apply below to join the team
+        <motion.div
+          className="apply-status"
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+          transition={{ delay: 0.4, duration: 0.4, ease: EASING }}
+        >
+          <span className="apply-status-indicator" />
+          <span className="apply-status-text">
+            Applications currently <strong>OPEN</strong>
           </span>
-        </div>
+        </motion.div>
 
-        <div className="positions-container">
-          {roles.map((role) => (
-            <details 
-              key={role.id} 
-              className="position-accordion"
-              open={openPositions[role.id]}
-              onToggle={() => togglePosition(role.id)}
-            >
-              <summary className="position-header">
-                <div>
-                  <span className="position-title">{role.title}</span>
-                  <span className="position-badge" style={{ marginLeft: '0.75rem' }}>{role.badge}</span>
+        {!selectedRole ? (
+          <motion.div
+            className="apply-roles"
+            key="roles"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: EASING }}
+          >
+            {roles.map((role) => (
+              <motion.button
+                key={role.id}
+                className="apply-role-card"
+                onClick={() => handleRoleSelect(role.id)}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.1 * roles.indexOf(role), ease: EASING }}
+                whileHover={{ y: -4, transition: { duration: 0.2, ease: EASING } }}
+              >
+                <div className="apply-role-header">
+                  <h3 className="apply-role-title">{role.title}</h3>
+                  <span className="apply-role-badge">{role.badge}</span>
                 </div>
-                <span className="position-icon">+</span>
-              </summary>
-              <div className="position-body">
-                <p className="position-desc">{role.description}</p>
-                <ul className="position-reqs">
-                  {role.requirements.map((req, i) => (
-                    <li key={i}>{req}</li>
-                  ))}
-                </ul>
+                <p className="apply-role-description">{role.description}</p>
+                <div className="apply-role-requirements">
+                  <span className="apply-role-requirements-label">Requirements</span>
+                  <ul>
+                    {role.requirements.map((req, idx) => (
+                      <li key={idx}>{req}</li>
+                    ))}
+                  </ul>
+                </div>
+                <span className="apply-role-action">Apply for this role →</span>
+              </motion.button>
+            ))}
+          </motion.div>
+        ) : (
+          <motion.div
+            className="apply-form-container"
+            key="form"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: EASING }}
+          >
+            <div className="apply-form-header">
+              <button
+                className="apply-back-button"
+                onClick={() => {
+                  setSelectedRole(null);
+                  setFormData({});
+                  setErrors({});
+                  setSubmitStatus(null);
+                }}
+              >
+                ← Back to roles
+              </button>
+              <h3 className="apply-form-title">
+                {roles.find((r) => r.id === selectedRole)?.title}
+              </h3>
+            </div>
 
-                <form 
-                  className="application-form" 
-                  onSubmit={(e) => handleSubmit(e, role.id, role.title)}
-                >
-                  <div className="form-group">
-                    <label htmlFor={`fullName-${role.id}`}>
-                      Full Name <span className="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id={`fullName-${role.id}`}
-                      name="fullName"
-                      placeholder="e.g., Jane Wanjiru"
-                      value={formData[role.id]?.fullName || ''}
-                      onChange={(e) => handleChange(role.id, e)}
-                    />
-                    {errors[`${role.id}-fullName`] && (
-                      <span className="form-error">{errors[`${role.id}-fullName`]}</span>
-                    )}
-                  </div>
+            <form className="apply-form" onSubmit={handleSubmit}>
+              <motion.div 
+                className="apply-form-group"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1, duration: 0.3, ease: EASING }}
+              >
+                <label htmlFor="fullName">
+                  Full Name <span className="apply-required">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="fullName"
+                  name="fullName"
+                  value={formData.fullName || ''}
+                  onChange={handleChange}
+                  placeholder="Enter your full name"
+                />
+                {errors.fullName && <span className="apply-error">{errors.fullName}</span>}
+              </motion.div>
 
-                  <div className="form-group">
-                    <label htmlFor={`email-${role.id}`}>
-                     Email <span className="required">*</span>
-                    </label>
-                    <input
-                      type="email"
-                      id={`email-${role.id}`}
-                      name="email"
-                      placeholder="e.g., janewanjiru@gmail.com"
-                      value={formData[role.id]?.email || ''}
-                      onChange={(e) => handleChange(role.id, e)}
-                    />
-                    {errors[`${role.id}-email`] && (
-                      <span className="form-error">{errors[`${role.id}-email`]}</span>
-                    )}
-                  </div>
+              <motion.div 
+                className="apply-form-group"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.3, ease: EASING }}
+              >
+                <label htmlFor="email">
+                  Email <span className="apply-required">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email || ''}
+                  onChange={handleChange}
+                  placeholder="your.email@example.com"
+                />
+                {errors.email && <span className="apply-error">{errors.email}</span>}
+              </motion.div>
 
-                  <div className="form-group">
-                    <label htmlFor={`regNumber-${role.id}`}>
-                      Registration Number <span className="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id={`regNumber-${role.id}`}
-                      name="regNumber"
-                      placeholder="e.g., BIT/2026/XXXXX"
-                      value={formData[role.id]?.regNumber || ''}
-                      onChange={(e) => handleChange(role.id, e)}
-                    />
-                    {errors[`${role.id}-regNumber`] && (
-                      <span className="form-error">{errors[`${role.id}-regNumber`]}</span>
-                    )}
-                  </div>
+              <motion.div 
+                className="apply-form-row"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.3, ease: EASING }}
+              >
+                <div className="apply-form-group">
+                  <label htmlFor="regNumber">
+                    Registration Number <span className="apply-required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="regNumber"
+                    name="regNumber"
+                    value={formData.regNumber || ''}
+                    onChange={handleChange}
+                    placeholder="e.g., BIT/2026/001"
+                  />
+                  {errors.regNumber && <span className="apply-error">{errors.regNumber}</span>}
+                </div>
 
-                  <div className="form-row">
-                    <div className="form-group">
-                      <label htmlFor={`yearOfStudy-${role.id}`}>
-                        Year of Study <span className="required">*</span>
-                      </label>
-                      <select
-                        id={`yearOfStudy-${role.id}`}
-                        name="yearOfStudy"
-                        value={formData[role.id]?.yearOfStudy || ''}
-                        onChange={(e) => handleChange(role.id, e)}
-                      >
-                        <option value="">Select year</option>
-                        <option value="1">Year 1</option>
-                        <option value="2">Year 2</option>
-                        <option value="3">Year 3</option>
-                        <option value="4">Year 4</option>
-                      </select>
-                      {errors[`${role.id}-yearOfStudy`] && (
-                        <span className="form-error">{errors[`${role.id}-yearOfStudy`]}</span>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor={`experience-${role.id}`}>
-                      Relevant Experience <span className="required">*</span>
-                    </label>
-                    <textarea
-                      id={`experience-${role.id}`}
-                      name="experience"
-                      rows="3"
-                      placeholder="Tell us about your experience with AWS, leadership roles, or relevant skills..."
-                      value={formData[role.id]?.experience || ''}
-                      onChange={(e) => handleChange(role.id, e)}
-                    />
-                    {errors[`${role.id}-experience`] && (
-                      <span className="form-error">{errors[`${role.id}-experience`]}</span>
-                    )}
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor={`motivation-${role.id}`}>
-                      Why This Role? <span className="required">*</span>
-                    </label>
-                    <textarea
-                      id={`motivation-${role.id}`}
-                      name="motivation"
-                      rows="3"
-                      placeholder="What motivates you to take on this leadership position?"
-                      value={formData[role.id]?.motivation || ''}
-                      onChange={(e) => handleChange(role.id, e)}
-                    />
-                    {errors[`${role.id}-motivation`] && (
-                      <span className="form-error">{errors[`${role.id}-motivation`]}</span>
-                    )}
-                  </div>
-
-                  <div className="form-row">
-                    <div className="form-group">
-                      <label htmlFor={`linkedin-${role.id}`}>LinkedIn (Optional)</label>
-                      <input
-                        type="url"
-                        id={`linkedin-${role.id}`}
-                        name="linkedin"
-                        placeholder="https://linkedin.com/in/..."
-                        value={formData[role.id]?.linkedin || ''}
-                        onChange={(e) => handleChange(role.id, e)}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <label htmlFor={`github-${role.id}`}>GitHub (Optional)</label>
-                      <input
-                        type="url"
-                        id={`github-${role.id}`}
-                        name="github"
-                        placeholder="https://github.com/..."
-                        value={formData[role.id]?.github || ''}
-                        onChange={(e) => handleChange(role.id, e)}
-                      />
-                    </div>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="btn btn-primary btn-full"
-                    disabled={loading}
+                <div className="apply-form-group">
+                  <label htmlFor="yearOfStudy">
+                    Year of Study <span className="apply-required">*</span>
+                  </label>
+                  <select
+                    id="yearOfStudy"
+                    name="yearOfStudy"
+                    value={formData.yearOfStudy || ''}
+                    onChange={handleChange}
                   >
-                    {loading ? (
-                      <>
-                        <span className="spinner"></span>
-                        Submitting...
-                      </>
-                    ) : (
-                      'Submit Application →'
-                    )}
-                  </button>
+                    <option value="">Select year</option>
+                    <option value="1">Year 1</option>
+                    <option value="2">Year 2</option>
+                    <option value="3">Year 3</option>
+                    <option value="4">Year 4</option>
+                  </select>
+                  {errors.yearOfStudy && <span className="apply-error">{errors.yearOfStudy}</span>}
+                </div>
+              </motion.div>
 
-                  {errors[`${role.id}-submit`] && (
-                    <div className="form-message show error">
-                      {errors[`${role.id}-submit`]}
-                    </div>
-                  )}
+              <motion.div 
+                className="apply-form-group"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25, duration: 0.3, ease: EASING }}
+              >
+                <label htmlFor="experience">
+                  Relevant Experience <span className="apply-required">*</span>
+                </label>
+                <textarea
+                  id="experience"
+                  name="experience"
+                  rows="4"
+                  value={formData.experience || ''}
+                  onChange={handleChange}
+                  placeholder="Describe your relevant experience, skills, and technical background..."
+                />
+                {errors.experience && <span className="apply-error">{errors.experience}</span>}
+              </motion.div>
 
-                  {submitSuccess && submitSuccess.roleId === role.id && (
-                    <div className="form-message show success">
-                      ✓ {submitSuccess.message}
-                    </div>
-                  )}
-                </form>
-              </div>
-            </details>
-          ))}
-        </div>
+              <motion.div 
+                className="apply-form-group"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.3, ease: EASING }}
+              >
+                <label htmlFor="motivation">
+                  Why This Role? <span className="apply-required">*</span>
+                </label>
+                <textarea
+                  id="motivation"
+                  name="motivation"
+                  rows="4"
+                  value={formData.motivation || ''}
+                  onChange={handleChange}
+                  placeholder="Explain why you're interested in this role and what you aim to contribute..."
+                />
+                {errors.motivation && <span className="apply-error">{errors.motivation}</span>}
+              </motion.div>
+
+              <motion.div 
+                className="apply-form-row"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35, duration: 0.3, ease: EASING }}
+              >
+                <div className="apply-form-group">
+                  <label htmlFor="linkedin">LinkedIn (Optional)</label>
+                  <input
+                    type="url"
+                    id="linkedin"
+                    name="linkedin"
+                    value={formData.linkedin || ''}
+                    onChange={handleChange}
+                    placeholder="https://linkedin.com/in/..."
+                  />
+                </div>
+
+                <div className="apply-form-group">
+                  <label htmlFor="github">GitHub (Optional)</label>
+                  <input
+                    type="url"
+                    id="github"
+                    name="github"
+                    value={formData.github || ''}
+                    onChange={handleChange}
+                    placeholder="https://github.com/..."
+                  />
+                </div>
+              </motion.div>
+
+              <motion.button
+                type="submit"
+                className="apply-submit"
+                disabled={loading}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.3, ease: EASING }}
+              >
+                {loading ? (
+                  <>
+                    <span className="apply-spinner" />
+                    Submitting...
+                  </>
+                ) : (
+                  'Submit Application'
+                )}
+              </motion.button>
+
+              {submitStatus === 'success' && (
+                <motion.div
+                  className="apply-message apply-message-success"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  Application submitted successfully. We'll review it shortly.
+                </motion.div>
+              )}
+
+              {submitStatus === 'error' && (
+                <motion.div
+                  className="apply-message apply-message-error"
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                >
+                  Submission failed. Please try again.
+                </motion.div>
+              )}
+            </form>
+          </motion.div>
+        )}
       </div>
     </section>
   );

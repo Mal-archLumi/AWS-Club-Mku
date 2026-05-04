@@ -1,14 +1,14 @@
 /* ═══════════════════════════════════════════════════════════
-   TEAM — PEOPLE LAYER
+   PROJECTS — OUTPUT LAYER
    ═══════════════════════════════════════════════════════════ */
 
-.team {
+.projects {
   position: relative;
   background: #0F1111;
   padding: 6rem 1.5rem;
 }
 
-.team-container {
+.projects-container {
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
@@ -18,12 +18,13 @@
    HEADER
    ───────────────────────────────────────────────────────── */
 
-.team-header {
+.projects-header {
+  text-align: center;
   max-width: 560px;
-  margin: 0 0 3rem;
+  margin: 0 auto 3rem;
 }
 
-.team-label {
+.projects-label {
   display: inline-block;
   font-size: 0.75rem;
   font-weight: 600;
@@ -37,7 +38,7 @@
   margin-bottom: 1rem;
 }
 
-.team-heading {
+.projects-heading {
   font-size: clamp(1.75rem, 4vw, 2.25rem);
   font-weight: 800;
   color: #FFFFFF;
@@ -46,7 +47,7 @@
   line-height: 1.2;
 }
 
-.team-description {
+.projects-description {
   font-size: 0.95rem;
   color: rgba(255, 255, 255, 0.55);
   line-height: 1.6;
@@ -57,94 +58,126 @@
    GRID
    ───────────────────────────────────────────────────────── */
 
-.team-grid {
+.projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 1.5rem;
 }
 
 /* ─────────────────────────────────────────────────────────
-   TEAM CARD
+   PROJECT CARD
    ───────────────────────────────────────────────────────── */
 
-.team-card {
+.project-card {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
-  overflow: hidden;
+  padding: 1.5rem;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.team-card:hover {
+.project-card:hover {
   border-color: rgba(255, 255, 255, 0.12);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
 
-.team-card-image {
-  width: 100%;
-  aspect-ratio: 1;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.team-card-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.team-card-content {
-  padding: 1.5rem;
+.project-header {
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
-.team-card-name {
+.project-info {
+  flex: 1;
+}
+
+.project-title {
   font-size: 1rem;
   font-weight: 700;
   color: #FFFFFF;
-  margin: 0;
+  margin: 0 0 0.25rem;
   line-height: 1.3;
 }
 
-.team-card-role {
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: #FF9900;
-  margin: 0;
+.project-category {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.project-status {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  padding: 0.35rem 0.75rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.65);
 }
 
-.team-card-note {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.55);
-  line-height: 1.5;
-  margin: 0.25rem 0 0;
+.project-status--deployed {
+  background: rgba(74, 222, 128, 0.08);
+  border-color: rgba(74, 222, 128, 0.2);
+  color: #4ADE80;
 }
 
-.team-card-links {
+.project-status--active {
+  background: rgba(255, 153, 0, 0.08);
+  border-color: rgba(255, 153, 0, 0.2);
+  color: #FF9900;
+}
+
+.project-status--prototype {
+  background: rgba(168, 85, 247, 0.08);
+  border-color: rgba(168, 85, 247, 0.2);
+  color: #A855F7;
+}
+
+.project-description {
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.6;
+  margin: 0 0 1rem;
+}
+
+/* ─────────────────────────────────────────────────────────
+   STACK
+   ───────────────────────────────────────────────────────── */
+
+.project-stack {
   display: flex;
-  gap: 1rem;
-  margin-top: 0.5rem;
+  flex-direction: column;
+  gap: 0.5rem;
   padding-top: 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-.team-card-link {
-  font-size: 0.75rem;
+.project-stack-label {
+  font-size: 0.7rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.5);
-  text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  transition: color 0.2s ease;
+  color: rgba(255, 153, 0, 0.7);
 }
 
-.team-card-link:hover {
-  color: #FF9900;
+.project-stack-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.project-stack-item {
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.25rem 0.6rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 4px;
+  color: rgba(255, 255, 255, 0.65);
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -152,30 +185,36 @@
    ───────────────────────────────────────────────────────── */
 
 @media (max-width: 768px) {
-  .team {
+  .projects {
     padding: 4rem 1rem;
   }
 
-  .team-grid {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  .projects-grid {
+    grid-template-columns: 1fr;
     gap: 1rem;
   }
 
-  .team-card-content {
-    padding: 1.25rem;
+  .project-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .project-status {
+    width: 100%;
+    text-align: center;
   }
 }
 
 @media (max-width: 640px) {
-  .team {
+  .projects {
     padding: 3rem 1rem;
   }
 
-  .team-header {
+  .projects-header {
     margin-bottom: 2rem;
   }
 
-  .team-grid {
-    grid-template-columns: 1fr;
+  .project-card {
+    padding: 1.25rem;
   }
 }

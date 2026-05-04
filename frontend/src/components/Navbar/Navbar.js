@@ -12,7 +12,7 @@ function Navbar() {
       setScrolled(window.scrollY > 20);
       
       // Track which section is in view
-      const sections = ['home', 'about', 'team', 'events', 'apply', 'contact'];
+      const sections = ['home', 'about', 'build-cycles', 'projects', 'team', 'apply', 'contact'];
       for (let section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -38,9 +38,9 @@ function Navbar() {
     <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}`}>
       <div className="nav-container">
         <a href="#home" className="nav-logo" onClick={() => handleLinkClick('home')}>
-          <img src={awsLogo} alt="AWS Cloud Club MKU" className="nav-logo-icon" />
-          <span>
-            Cloud Club <span className="nav-logo-accent">MKU</span>
+          <img src={awsLogo} alt="AWS Student Builder Community MKU" className="nav-logo-icon" />
+          <span className="nav-logo-text">
+            AWS Student Builder Community <span className="nav-logo-accent">MKU</span>
           </span>
         </a>
 
@@ -54,8 +54,9 @@ function Navbar() {
 
         <ul className={`nav-links${isOpen ? ' nav-links--open' : ''}`}>
           <li><a href="#home" className={activeSection === 'home' ? 'active' : ''} onClick={() => handleLinkClick('home')}>Home</a></li>
-          <li><a href="#about" className={activeSection === 'about' ? 'active' : ''} onClick={() => handleLinkClick('about')}>About</a></li>
-          <li><a href="#events" className={activeSection === 'events' ? 'active' : ''} onClick={() => handleLinkClick('events')}>Events</a></li>
+          <li><a href="#about" className={activeSection === 'about' ? 'active' : ''} onClick={() => handleLinkClick('about')}>How It Works</a></li>
+          <li><a href="#build-cycles" className={activeSection === 'build-cycles' ? 'active' : ''} onClick={() => handleLinkClick('build-cycles')}>Build Cycles</a></li>
+          <li><a href="#projects" className={activeSection === 'projects' ? 'active' : ''} onClick={() => handleLinkClick('projects')}>Outcomes</a></li>
           <li><a href="#team" className={activeSection === 'team' ? 'active' : ''} onClick={() => handleLinkClick('team')}>Team</a></li>
           <li><a href="#apply" className={activeSection === 'apply' ? 'active' : ''} onClick={() => handleLinkClick('apply')}>Apply</a></li>
           <li><a href="#contact" className={activeSection === 'contact' ? 'active' : ''} onClick={() => handleLinkClick('contact')}>Contact</a></li>
