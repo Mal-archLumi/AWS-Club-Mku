@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "AWS Builder MKU",
+  "name": "AWS Student Builder Community MKU",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,7 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#0a0e1a",
+  "background_color": "#0a0e1a",
+  "description": "A structured student developer ecosystem at Mount Kenya University where builders collaborate, build real-world systems, and ship production-ready projects."
 }
