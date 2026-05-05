@@ -40,7 +40,7 @@ function Navbar() {
         <a href="#home" className="nav-logo" onClick={() => handleLinkClick('home')}>
           <img src={awsLogo} alt="AWS Student Builder Community MKU" className="nav-logo-icon" />
           <span className="nav-logo-text">
-            AWS Student Builder Community <span className="nav-logo-accent">MKU</span>
+            Student Builder Community <span className="nav-logo-accent">MKU</span>
           </span>
         </a>
 

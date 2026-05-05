@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import './Contact.css';
+
+// EmailJS Configuration
+const EMAILJS_SERVICE_ID = 'service_be3ds85';
+const EMAILJS_TEMPLATE_ID_CONTACT = 'template_contact_form'; // You'll need to create this template
+const EMAILJS_PUBLIC_KEY = 'DiIq_Jyufw19_CGfy';
 
 const EASING = [0.2, 0.8, 0.2, 1];
 
@@ -50,7 +56,7 @@ function Contact() {
           setInView(true);
         }
       },
-      { threshold: 0.2, rootMargin: '-80px' }
+      { threshold: 0.1, rootMargin: '0px' }
     );
 
     if (ref.current) observer.observe(ref.current);
@@ -92,27 +98,28 @@ function Contact() {
     setLoading(true);
     setSubmitStatus(null);
 
-    const messageData = {
-      ...formData,
-      submittedAt: new Date().toISOString(),
+    // Prepare email template data
+    const templateParams = {
+      to_email: 'awscloudclub.mku@gmail.com',
+      from_name: formData.fullName,
+      from_email: formData.email,
+      subject: formData.subject || 'General Inquiry',
+      message: formData.message,
+      submission_date: new Date().toLocaleDateString(),
     };
 
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(messageData),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Submission failed');
-      }
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID_CONTACT,
+        templateParams,
+        EMAILJS_PUBLIC_KEY
+      );
 
       setSubmitStatus('success');
       setFormData({ fullName: '', email: '', subject: '', message: '' });
     } catch (error) {
-      console.error('Submission error:', error);
+      console.error('EmailJS Error:', error);
       setSubmitStatus('error');
     } finally {
       setLoading(false);

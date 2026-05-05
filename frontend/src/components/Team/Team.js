@@ -95,7 +95,7 @@ function Team() {
           setInView(true);
         }
       },
-      { threshold: 0.2, rootMargin: '-80px' }
+      { threshold: 0.1, rootMargin: '0px' }
     );
 
     if (ref.current) observer.observe(ref.current);

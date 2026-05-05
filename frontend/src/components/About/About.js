@@ -89,7 +89,7 @@ const workflowCards = [
 function About() {
   const [inView, setInView] = useState(false);
   const [activeCard, setActiveCard] = useState(0);
-  const hoverTimeoutRef = useRef(null);
+  const autoPlayRef = useRef(null);
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -99,40 +99,43 @@ function About() {
           setInView(true);
         }
       },
-      { threshold: 0.3, rootMargin: '-100px' }
+      { threshold: 0.1, rootMargin: '0px' }
     );
 
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  // Stable hover handler - only switches after committed hover
-  const handleCardHover = (index) => {
-    // Clear any pending transition
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
+  // Auto-play animation: cycle through cards every 4 seconds
+  useEffect(() => {
+    if (!inView) return;
+
+    autoPlayRef.current = setInterval(() => {
+      setActiveCard((prev) => (prev + 1) % workflowCards.length);
+    }, 4000);
+
+    return () => {
+      if (autoPlayRef.current) {
+        clearInterval(autoPlayRef.current);
+      }
+    };
+  }, [inView]);
+
+  // Handle manual card selection (pauses auto-play temporarily)
+  const handleCardClick = (index) => {
+    setActiveCard(index);
+    
+    // Clear existing interval
+    if (autoPlayRef.current) {
+      clearInterval(autoPlayRef.current);
     }
 
-    // Only switch if hovering on a different card for 400ms
-    if (activeCard !== index) {
-      hoverTimeoutRef.current = setTimeout(() => {
-        setActiveCard(index);
-      }, 400);
-    }
-  };
-
-  const handleCardLeave = () => {
-    // Clear timeout when leaving a card
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
-    }
-  };
-
-  const handleContainerLeave = () => {
-    // Clear timeout when leaving container
-    if (hoverTimeoutRef.current) {
-      clearTimeout(hoverTimeoutRef.current);
-    }
+    // Restart auto-play after 6 seconds of inactivity
+    autoPlayRef.current = setTimeout(() => {
+      autoPlayRef.current = setInterval(() => {
+        setActiveCard((prev) => (prev + 1) % workflowCards.length);
+      }, 4000);
+    }, 6000);
   };
 
   // Calculate card position and z-index
@@ -233,10 +236,7 @@ function About() {
               },
             }}
           >
-            <div 
-              className="cards-container"
-              onMouseLeave={handleContainerLeave}
-            >
+            <div className="cards-container">
               {workflowCards.map((card, index) => {
                 const style = getCardStyle(index);
                 const isActive = activeCard === index;
@@ -262,19 +262,18 @@ function About() {
                       },
                     }}
                     transition={{
-                      opacity: { duration: 0.5, ease: [0.2, 0.8, 0.2, 1], delay: inView && !activeCard ? index * 0.12 : 0 },
-                      x: { duration: 0.5, ease: [0.2, 0.8, 0.2, 1], delay: inView && !activeCard ? index * 0.12 : 0 },
-                      scale: { duration: 0.5, ease: [0.2, 0.8, 0.2, 1], delay: inView && !activeCard ? index * 0.12 : 0 },
-                      top: { duration: 0.5, ease: [0.2, 0.8, 0.2, 1] },
-                      left: { duration: 0.5, ease: [0.2, 0.8, 0.2, 1] },
+                      opacity: { duration: 0.6, ease: [0.2, 0.8, 0.2, 1] },
+                      x: { duration: 0.6, ease: [0.2, 0.8, 0.2, 1] },
+                      scale: { duration: 0.6, ease: [0.2, 0.8, 0.2, 1] },
+                      top: { duration: 0.8, ease: [0.2, 0.8, 0.2, 1] },
+                      left: { duration: 0.8, ease: [0.2, 0.8, 0.2, 1] },
                       zIndex: { duration: 0 },
                     }}
                     whileHover={{
                       y: -6,
                       transition: { duration: 0.3, ease: [0.2, 0.8, 0.2, 1] },
                     }}
-                    onMouseEnter={() => handleCardHover(index)}
-                    onMouseLeave={handleCardLeave}
+                    onClick={() => handleCardClick(index)}
                     style={{
                       cursor: 'pointer',
                     }}
