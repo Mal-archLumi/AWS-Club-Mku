@@ -5,7 +5,7 @@ function SEO({
   title = "AWS Student Builder Community MKU | Build Real-World Projects",
   description = "A structured student developer ecosystem at Mount Kenya University where builders collaborate, build real-world systems, and ship production-ready projects.",
   image = "/images/logo.jpeg",
-  url = "https://awsclubmku.dev",
+  url = "https://awsmku.live",
   type = "website"
 }) {
   const fullTitle = title.includes('AWS Student Builder Community MKU') 
@@ -17,8 +17,8 @@ function SEO({
     "@type": "Organization",
     "name": "AWS Student Builder Community MKU",
     "alternateName": "AWS Cloud Club MKU",
-    "url": "https://awsclubmku.dev",
-    "logo": "https://awsclubmku.dev/images/logo.jpeg",
+    "url": "https://awsmku.live",
+    "logo": "https://awsmku.live/images/logo.jpeg",
     "description": description,
     "address": {
       "@type": "PostalAddress",

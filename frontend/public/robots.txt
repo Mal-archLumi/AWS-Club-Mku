@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://awsclubmku.dev/sitemap.xml
+Sitemap: https://awsmku.live/sitemap.xml
