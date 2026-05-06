@@ -7,7 +7,7 @@ import './Apply.css';
 // EmailJS Configuration
 const EMAILJS_SERVICE_ID = 'service_be3ds85';
 const EMAILJS_TEMPLATE_ID = 'template_u7gtp0f';
-const EMAILJS_PUBLIC_KEY = 'DiIq_Jyufw19_CGfy';
+const EMAILJS_PUBLIC_KEY = '_eGe3_Hw7hzf2QmG_';
 
 const EASING = [0.2, 0.8, 0.2, 1];
 
