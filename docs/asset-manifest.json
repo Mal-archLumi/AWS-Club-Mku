@@ -1,13 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.74640dc7.css",
-    "main.js": "/static/js/main.fa4d4595.js",
+    "main.css": "/static/css/main.2908c9bd.css",
+    "main.js": "/static/js/main.a9b08211.js",
+    "static/media/DC_Donates_logo_inverted.png": "/static/media/DC_Donates_logo_inverted.d616db73476eb1b795aa.png",
     "index.html": "/index.html",
-    "main.74640dc7.css.map": "/static/css/main.74640dc7.css.map",
-    "main.fa4d4595.js.map": "/static/js/main.fa4d4595.js.map"
+    "main.2908c9bd.css.map": "/static/css/main.2908c9bd.css.map",
+    "main.a9b08211.js.map": "/static/js/main.a9b08211.js.map"
   },
   "entrypoints": [
-    "static/css/main.74640dc7.css",
-    "static/js/main.fa4d4595.js"
+    "static/css/main.2908c9bd.css",
+    "static/js/main.a9b08211.js"
   ]
 }

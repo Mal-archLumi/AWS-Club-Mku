@@ -41,47 +41,54 @@ function Hero() {
         >
           <motion.div className="hero-label" variants={slideUp}>
             <span className="hero-label-dot" />
-            <span>Builder System</span>
+            <span>AWS Student Builder Community MKU</span>
           </motion.div>
 
           <motion.h1 className="hero-heading" variants={slideUp}>
-            Build real software.
-            <span className="hero-heading-accent">Ship real products.</span>
+            Learn. Build. Grow.
+            <span className="hero-heading-accent">
+              Together with other students.
+            </span>
           </motion.h1>
 
           <motion.p className="hero-description" variants={slideUp}>
-            A structured developer ecosystem where students execute in focused
-            teams, deliver on timelines, and operate continuous build cycles
-            with mentorship and code reviews.
+            Join a community where students learn AWS, build real projects,
+            work together in teams, and gain practical experience that prepares
+            them for internships, certifications, and careers in technology.
           </motion.p>
 
           <motion.div className="hero-actions" variants={slideUp}>
             <a href="#apply" className="hero-btn hero-btn-primary">
-              Enter System
+              Join the Community
             </a>
+
             <button
               className="hero-btn hero-btn-secondary"
               onClick={() => {
-                document.getElementById('build-cycles')?.scrollIntoView({
+                document.getElementById('projects')?.scrollIntoView({
                   behavior: 'smooth',
                 });
               }}
             >
-              View Build Cycles
+              See Our Projects
             </button>
           </motion.div>
 
           <motion.div className="hero-metrics" variants={fadeIn}>
             <div className="hero-metric">
               <div className="hero-metric-value">100+</div>
-              <div className="hero-metric-label">Active Builders</div>
+              <div className="hero-metric-label">Community Members</div>
             </div>
+
             <div className="hero-metric-divider" />
+
             <div className="hero-metric">
               <div className="hero-metric-value">50+</div>
-              <div className="hero-metric-label">Projects Shipped</div>
+              <div className="hero-metric-label">Projects Built</div>
             </div>
+
             <div className="hero-metric-divider" />
+
             <div className="hero-metric">
               <div className="hero-metric-value">15+</div>
               <div className="hero-metric-label">AWS Certified</div>
@@ -97,54 +104,79 @@ function Hero() {
         >
           <div className="hero-terminal">
             <div className="hero-terminal-header">
-              <div className="hero-terminal-title">build-system</div>
+              <div className="hero-terminal-title">
+                student-builder-club
+              </div>
+
               <div className="hero-terminal-controls">
                 <span />
                 <span />
                 <span />
               </div>
             </div>
+
             <div className="hero-terminal-body">
               <div className="hero-terminal-line">
                 <span className="hero-terminal-prompt">$</span>
-                <span className="hero-terminal-text">npm run build</span>
-              </div>
-              <div className="hero-terminal-line">
-                <span className="hero-terminal-output">
-                  Building production bundle...
+                <span className="hero-terminal-text">
+                  Learning AWS...
                 </span>
               </div>
+
+              <div className="hero-terminal-line">
+                <span className="hero-terminal-output">
+                  Working together on a project...
+                </span>
+              </div>
+
               <div className="hero-terminal-line">
                 <span className="hero-terminal-success">✓</span>
-                <span className="hero-terminal-text">Build complete</span>
+                <span className="hero-terminal-text">
+                  Project completed
+                </span>
               </div>
+
               <div className="hero-terminal-line">
                 <span className="hero-terminal-prompt">$</span>
-                <span className="hero-terminal-text">npm run deploy</span>
-              </div>
-              <div className="hero-terminal-line">
-                <span className="hero-terminal-output">
-                  Deploying to production...
+                <span className="hero-terminal-text">
+                  Presenting our work...
                 </span>
               </div>
+
+              <div className="hero-terminal-line">
+                <span className="hero-terminal-output">
+                  Sharing the project with everyone...
+                </span>
+              </div>
+
               <div className="hero-terminal-line">
                 <span className="hero-terminal-success">✓</span>
-                <span className="hero-terminal-text">Deployed successfully</span>
+                <span className="hero-terminal-text">
+                  Success!
+                </span>
               </div>
             </div>
           </div>
 
           <div className="hero-stats-card">
             <div className="hero-stats-card-row">
-              <div className="hero-stats-card-label">Active Cycles</div>
+              <div className="hero-stats-card-label">
+                Current Projects
+              </div>
               <div className="hero-stats-card-value">4</div>
             </div>
+
             <div className="hero-stats-card-row">
-              <div className="hero-stats-card-label">PRs Merged</div>
+              <div className="hero-stats-card-label">
+                Students Involved
+              </div>
               <div className="hero-stats-card-value">243</div>
             </div>
+
             <div className="hero-stats-card-row">
-              <div className="hero-stats-card-label">Code Reviews</div>
+              <div className="hero-stats-card-label">
+                Mentorship Sessions
+              </div>
               <div className="hero-stats-card-value">89</div>
             </div>
           </div>

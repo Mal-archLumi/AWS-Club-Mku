@@ -109,13 +109,13 @@ function Projects() {
           animate={inView ? 'visible' : 'hidden'}
         >
           <motion.span className="projects-label" variants={slideUp}>
-            Output Layer
+            Projects
           </motion.span>
           <motion.h2 className="projects-heading" variants={slideUp}>
-            System Outputs
+            Projects Built by Our Community
           </motion.h2>
           <motion.p className="projects-description" variants={slideUp}>
-            Real applications and systems built through structured execution cycles. These are the tangible results of continuous collaboration and delivery.
+            Explore some of the websites, applications, AI tools, and cloud projects our members have built while learning together.
           </motion.p>
         </motion.div>
 

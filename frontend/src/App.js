@@ -3,8 +3,8 @@ import SEO from './components/SEO';
 import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
 import About from './components/About/About';
-import BuildCycles from './components/BuildCycles/BuildCycles';
 import Projects from './components/Projects/Projects';
+import Partners from "./components/Partners/Partners";
 import Team from './components/Team/Team';
 import Apply from './components/Apply/Apply';
 import Contact from './components/Contact/Contact';
@@ -37,8 +37,8 @@ function App() {
       <main>
         <Hero />
         <About />
-        <BuildCycles />
         <Projects />
+        <Partners />
         <Team />
         <Apply />
         <Contact />

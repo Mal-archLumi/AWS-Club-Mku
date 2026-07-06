@@ -7,14 +7,21 @@ const EASING = [0.2, 0.8, 0.2, 1];
 
 const slideUp = {
   hidden: { opacity: 0, y: 16 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASING } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: EASING },
+  },
 };
 
 const staggerContainer = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
   },
 };
 
@@ -22,13 +29,20 @@ const gridStagger = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.15 },
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.15,
+    },
   },
 };
 
 const gridItem = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: EASING } },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: EASING },
+  },
 };
 
 function TeamCard({ member }) {
@@ -40,7 +54,13 @@ function TeamCard({ member }) {
     <motion.article
       className="team-card"
       variants={gridItem}
-      whileHover={{ y: -4, transition: { duration: 0.2, ease: EASING } }}
+      whileHover={{
+        y: -4,
+        transition: {
+          duration: 0.2,
+          ease: EASING,
+        },
+      }}
     >
       <div className="team-card-image">
         <img
@@ -51,12 +71,25 @@ function TeamCard({ member }) {
           }}
         />
       </div>
+
       <div className="team-card-content">
-        <h3 className="team-card-name">{member.name}</h3>
-        <p className="team-card-role">{member.role}</p>
-        {member.note && <p className="team-card-note">{member.note}</p>}
+        <h3 className="team-card-name">
+          {member.name}
+        </h3>
+
+        <p className="team-card-role">
+          {member.role}
+        </p>
+
+        {member.note && (
+          <p className="team-card-note">
+            {member.note}
+          </p>
+        )}
+
         {(member.socials?.linkedin || member.socials?.github) && (
           <div className="team-card-links">
+
             {member.socials.linkedin && (
               <a
                 href={member.socials.linkedin}
@@ -67,6 +100,7 @@ function TeamCard({ member }) {
                 LinkedIn
               </a>
             )}
+
             {member.socials.github && (
               <a
                 href={member.socials.github}
@@ -77,6 +111,7 @@ function TeamCard({ member }) {
                 GitHub
               </a>
             )}
+
           </div>
         )}
       </div>
@@ -95,31 +130,54 @@ function Team() {
           setInView(true);
         }
       },
-      { threshold: 0.1, rootMargin: '0px' }
+      {
+        threshold: 0.1,
+        rootMargin: '0px',
+      }
     );
 
     if (ref.current) observer.observe(ref.current);
+
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section className="team" id="team" ref={ref}>
+    <section
+      className="team"
+      id="team"
+      ref={ref}
+    >
       <div className="team-container">
+
         <motion.div
           className="team-header"
           variants={staggerContainer}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
         >
-          <motion.span className="team-label" variants={slideUp}>
-            People Layer
+
+          <motion.span
+            className="team-label"
+            variants={slideUp}
+          >
+            Meet the Team
           </motion.span>
-          <motion.h2 className="team-heading" variants={slideUp}>
-            The Team Behind Builder Club MKU
+
+          <motion.h2
+            className="team-heading"
+            variants={slideUp}
+          >
+            The Students Behind Builder Community MKU
           </motion.h2>
-          <motion.p className="team-description" variants={slideUp}>
-            A group of student developers and coordinators organizing, building, and supporting club activities and projects.
+
+          <motion.p
+            className="team-description"
+            variants={slideUp}
+          >
+            We're a community of students who enjoy learning, building projects,
+            and helping others grow in cloud computing and software development.
           </motion.p>
+
         </motion.div>
 
         <motion.div
@@ -129,9 +187,13 @@ function Team() {
           animate={inView ? 'visible' : 'hidden'}
         >
           {teamMembers.map((member) => (
-            <TeamCard key={member.id} member={member} />
+            <TeamCard
+              key={member.id}
+              member={member}
+            />
           ))}
         </motion.div>
+
       </div>
     </section>
   );
