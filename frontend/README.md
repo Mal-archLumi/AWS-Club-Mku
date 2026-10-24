@@ -68,3 +68,23 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# Leadership Applications
+
+The leadership application feature is currently disabled because the
+current AWS Cloud Club MKU leadership team has been constituted.
+
+The application functionality has intentionally been retained in the codebase
+for future recruitment cycles.
+
+To reopen leadership applications:
+
+1. Open `frontend/src/config.js`.
+2. Change `SHOW_LEADERSHIP_APPLICATION` from `false` to `true`.
+3. Verify that the `Apply` section appears on the homepage.
+4. Verify that the `Leadership` navigation item appears.
+5. Test the application form before deployment.
+
+```js
+export const SHOW_LEADERSHIP_APPLICATION = true;
+```

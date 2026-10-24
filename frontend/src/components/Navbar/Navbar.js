@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import awsLogo from '../../images/aws-logo.png';
+import { SHOW_LEADERSHIP_APPLICATION } from '../../config';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,14 +14,15 @@ function Navbar() {
       
       // Track which section is in view
       const sections = [
-  'home',
-  'about',
-  'projects',
-  'partners',
-  'team',
-  'apply',
-  'contact',
-];
+        'home',
+        'about',
+        'projects',
+        'partners',
+        'team',
+          ...(SHOW_LEADERSHIP_APPLICATION ? ['apply'] : []),
+        'contact',
+      ];
+      
       for (let section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -74,7 +76,7 @@ function Navbar() {
   </a>
 </li>
           <li><a href="#team" className={activeSection === 'team' ? 'active' : ''} onClick={() => handleLinkClick('team')}>Our Team</a></li>
-          <li><a href="#apply" className={activeSection === 'apply' ? 'active' : ''} onClick={() => handleLinkClick('apply')}>Leadership</a></li>
+         {SHOW_LEADERSHIP_APPLICATION && (<li><a href="#apply" className={activeSection === 'apply' ? 'active' : ''} onClick={() => handleLinkClick('apply')}>Leadership</a></li>)}
           <li><a href="#contact" className={activeSection === 'contact' ? 'active' : ''} onClick={() => handleLinkClick('contact')}>Contact</a></li>
         </ul>
       </div>

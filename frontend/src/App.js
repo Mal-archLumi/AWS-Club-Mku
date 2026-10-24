@@ -10,6 +10,9 @@ import Apply from './components/Apply/Apply';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
 import './App.css';
+import { SHOW_LEADERSHIP_APPLICATION } from './config';
+
+//Introduce a toggle to show call for leadership application at the right moment 
 
 function App() {
   useEffect(() => {
@@ -40,7 +43,8 @@ function App() {
         <Projects />
         <Partners />
         <Team />
-        <Apply />
+        {/* Leadership applications are currently closed. */}
+        {SHOW_LEADERSHIP_APPLICATION && <Apply />}
         <Contact />
       </main>
       <Footer />
